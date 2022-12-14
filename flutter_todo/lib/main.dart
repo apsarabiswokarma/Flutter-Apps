@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/models/todo.dart';
 import 'package:flutter_todo/widgets/todo_tile.dart';
-
-import 'models/todo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     final String title = textEditingController.text;
     if (title.isNotEmpty) {
       setState(() {
-        todos.add(Todo(title, false));
+        todos = [(Todo(title, false)), ...todos];
       });
       textEditingController.clear();
     }
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  // void _checkedall() {
+  // void _checkAll() {
   //   setState(() {
   //     todos[0].completed = true;
   //   });
@@ -53,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   //   print(todos[0].completed);
   // }
 
-  void _checkedall() {
+  void _checkAll() {
     setState(() {
       for (int i = 0; i < todos.length; i++) {
         todos[i].completed = true;
@@ -73,33 +72,82 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Todo App',
       home: Scaffold(
+        backgroundColor: const Color(0xffeeeff4),
         appBar: AppBar(
-          title: const Text('TO DO'),
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          title: const Text(
+            'TO DO',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
           centerTitle: true,
           actions: [
-            IconButton(
-              onPressed: _deleteall,
-              icon: const Icon(Icons.delete, color: Colors.red),
+            Tooltip(
+              message: "Delete All",
+              child: IconButton(
+                onPressed: _deleteall,
+                icon: const Icon(Icons.delete, color: Colors.red),
+              ),
             ),
-            IconButton(
-              onPressed: () {
-                _checkedall();
-              },
-              icon: const Icon(Icons.check_box_rounded),
+            Tooltip(
+              message: "Check All",
+              child: IconButton(
+                onPressed: () {
+                  _checkAll();
+                },
+                icon: const Icon(
+                  Icons.check_box_rounded,
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         ),
-        body: ListView.builder(
-          itemCount: todos.length,
-          itemBuilder: (context, index) {
-            return TodoTile(
-              completed: todos[index].completed,
-              title: todos[index].title,
-              onDelete: () {
-                _deleteTodoAtIndex(index);
-              },
-            );
-          },
+
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 36,
+              ),
+              const Text(
+                "All ToDos",
+                style: TextStyle(
+                  color: Color(0xff2a2b31),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: todos.length,
+                  itemBuilder: (context, index) {
+                    return TodoTile(
+                      onChecked: (checked) async {
+                        if (checked) {
+                          var checkedTodo = todos.removeAt(index);
+                          checkedTodo.completed = true;
+                          setState(() {
+                            todos.add(checkedTodo);
+                          });
+                        }
+                      },
+                      completed: todos[index].completed,
+                      title: todos[index].title,
+                      onDelete: () {
+                        _deleteTodoAtIndex(index);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         // body: ListView(
         //   children: const <Widget>[
@@ -119,11 +167,25 @@ class _MyAppState extends State<MyApp> {
             // const SizedBox(width: 200, child: TextField()), // Take only 200px width
             Expanded(
                 child: TextField(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                fillColor: Colors.white,
+                filled: true,
+                hintText: "Add new To Do",
+              ),
               controller: textEditingController,
-            )), // Take all the remaining width
-            FloatingActionButton(
-              onPressed: _addTodo,
-              child: const Icon(Icons.add),
+            )),
+            const SizedBox(
+              width: 20,
+            ), // Take all the remaining width
+            SizedBox(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size.square(50),
+                ),
+                onPressed: _addTodo,
+                child: const Icon(Icons.add),
+              ),
             )
           ],
         ),

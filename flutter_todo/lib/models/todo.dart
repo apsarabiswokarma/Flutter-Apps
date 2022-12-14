@@ -10,6 +10,7 @@ class Todo {
 
 List<Todo> todos = [
   Todo("Learning", false),
-  Todo("Learning 2", false),
-  Todo("Learning 3", false),
+  Todo("Shopping", false),
+  Todo("Zoom Meeting", false),
+  Todo("Dinner with family at 9 ", false),
 ];
