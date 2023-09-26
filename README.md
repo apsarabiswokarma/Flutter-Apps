@@ -19,3 +19,14 @@ Features
 - Set different difficulty levels for questions
 - Take quizzes and track your scores
 - Get feedback on your answers
+
+## Image Resources:
+https://storyset.com/
+https://pixabay.com/
+https://undraw.co/illustrations
+https://iradesign.io/
+https://unsplash.com/
+
+##Colors Resources:
+https://www.realtimecolors.com/
+
