@@ -22,16 +22,41 @@ Features
 
 ## Image Resources:
 https://storyset.com/
+
 https://pixabay.com/
+
 https://undraw.co/illustrations
+
 https://iradesign.io/
+
 https://unsplash.com/
 
 ##Colors Resources:
 
 ✅ Realtime colors: https://realtimecolors.com
+
 ✅ Font Pair: https://www.fontpair.co/all
+
 ✅ Haikei: https://app.haikei.app
+
 ✅ Omatsuri: https://omatsuri.app/
+
 ✅ Gradient Style: https://gradient.style
+
+
+7 Important tools for designers you must use 
+1.Noun Project(for icons)
+
+2.SlidesCarnival
+
+3.Unsplash(for pics)
+
+4.Pexels(for pics)
+
+5.Canva
+
+6. Mentimeter(for presentation)
+
+
+7. Chrome Capture
 
